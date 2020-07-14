@@ -1,0 +1,66 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+
+PATH: 
+  C:\cmder_x86\bin;C:\cmder_x86\vendor\conemu-maximus5\ConEmu\Scripts;C:\cmder_x86\bin;C:\cmder_x86\vendor\conemu-maximus5\ConEmu\Scripts;C:\cmder_x86\vendor\conemu-maximus5;C:\cmder_x86\vendor\conemu-maximus5\ConEmu;C:\app\smd094\product\11.2.0\client_2;C:\Python27\;C:\Python27\Scripts;C:\app\smd094\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Users\smd094\AppData\Local\Microsoft\WindowsApps;C:\Users\smd094\AppData\Local\Programs\Microsoft VS Code Insiders\bin;C:\Users\smd094\AppData\Roaming\npm;C:\Users\smd094\AppData\Local\Yarn\bin;C:\Users\smd094\AppData\Roaming\Composer\vendor\bin;C:\Users\smd094\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\share\vim\vim74;C:\cmder_x86\;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\share\vim\vim74;C:\cmder_x86\
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.16.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@mdi%2ffont: tunneling socket could not be established, statusCode=400
+      at ClientRequest.onConnect (C:\Program Files (x86)\Yarn\lib\cli.js:152223:19)
+      at Object.onceWrapper (events.js:418:26)
+      at ClientRequest.emit (events.js:311:20)
+      at Socket.socketOnData (_http_client.js:510:11)
+      at Socket.emit (events.js:311:20)
+      at addChunk (_stream_readable.js:294:12)
+      at readableAddChunk (_stream_readable.js:275:11)
+      at Socket.Readable.push (_stream_readable.js:209:10)
+      at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+
+npm manifest: 
+  {
+      "private": true,
+      "scripts": {
+          "dev": "npm run development",
+          "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+          "watch": "npm run development -- --watch",
+          "watch-poll": "npm run watch -- --watch-poll",
+          "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
+          "prod": "npm run production",
+          "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+      },
+      "devDependencies": {
+          "axios": "^0.19",
+          "cross-env": "^7.0",
+          "laravel-mix": "^5.0.1",
+          "lodash": "^4.17.13",
+          "resolve-url-loader": "^3.1.0",
+          "sass": "^1.15.2",
+          "sass-loader": "^8.0.0",
+          "vue-template-compiler": "^2.6.11"
+      },
+      "dependencies": {
+          "@mdi/font": "^5.3.45",
+          "izitoast": "^1.4.0",
+          "vue": "^2.6.11",
+          "vue-izitoast": "^1.2.1",
+          "vue-router": "^3.3.4",
+          "vuetify": "^2.3.4",
+          "vuex": "^3.5.1",
+          "vuex-persistedstate": "^3.0.1"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
