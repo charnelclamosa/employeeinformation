@@ -17,7 +17,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Username</th>
-                                <th>Password</th>
                                 <th>Last Updated Date</th>
                                 <th>Updated by</th>
                                 <th>Actions</th>
@@ -27,7 +26,6 @@
                             <tr v-for="data in datas" :key="data.id">
                                 <td>{{data.id}}</td>
                                 <td>{{data.username}}</td>
-                                <td>{{data.password}}</td>
                                 <td>{{data.updated_at}}</td>
                                 <td>{{data.updated_by}}</td>
                                 <td>
@@ -73,8 +71,8 @@
                 </v-card-title>
                 <v-card-text class="mt-5">
                     <v-form class="mx-5">
-                        <v-text-field dense outlined label="Username" prepend-icon="mdi-account"></v-text-field>
-                        <v-text-field dense outlined label="Password" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
+                        <v-text-field dense outlined disabled label="Username" prepend-icon="mdi-account" v-model="edit.username"></v-text-field>
+                        <v-text-field dense outlined label="Password" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword" v-model="edit.password"></v-text-field>
                     </v-form>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -83,7 +81,7 @@
                     <v-btn color="error" outlined @click="EditDialog = false">
                         Cancel
                     </v-btn>
-                    <v-btn color="primary" @click="EditDialog = false">
+                    <v-btn color="primary" @click="updateAccount()">
                         Update
                     </v-btn>
                 </v-card-actions>
@@ -129,7 +127,6 @@ export default {
                     }
                 }
             },
-            CardTitle: 'Basic CRUD',
             CreateDialog: false,
             EditDialog: false,
             datas: [],
@@ -168,6 +165,26 @@ export default {
                 })
             }
         },
+        passObject(val) {
+            this.EditDialog = true
+            this.edit = Object.assign({}, val)
+        },
+        updateAccount() {
+            let username = this.edit.username
+            let password = this.edit.password
+            let updated_by = this.$store.state.user.username
+            if(password != '') {
+                axios.post('api/updateAccount', {
+                    username,
+                    password,
+                    updated_by
+                }).then(res => {
+                    this.EditDialog = false
+                    this.$toast.success('Data has been updated!', 'Success', this.notificationSystem.options.success)
+                    this.fetchData()
+                })
+            }
+        }
     }
 }
 </script>

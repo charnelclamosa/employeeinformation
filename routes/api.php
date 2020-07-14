@@ -18,7 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Authentication routes
+Route::post('/signin', 'AuthenticationController@loginAuth');
+
 // Account routes
 Route::post('/fetchAccount', 'AccountsController@fetchAccount');
 Route::post('/addAccount', 'AccountsController@addAccount');
-Route::post('/signin', 'AuthenticationController@loginAuth');
+Route::post('/updateAccount', 'AccountsController@updateAccount');
+

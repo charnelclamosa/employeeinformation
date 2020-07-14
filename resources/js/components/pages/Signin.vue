@@ -7,8 +7,8 @@
             <v-card width="300" height="380" tile elevation="1">
                 <v-card-title class="font-weight-black text-center px-7 mt-10">{{SystemName}}</v-card-title>
                 <v-card-text class="px-5 mt-5">
-                    <v-text-field dense outlined prepend-icon="mdi-account" label="Username" :rules="rules" v-model="user.username"></v-text-field>
-                    <v-text-field dense outlined prepend-icon="mdi-lock" label="Password" :rules="rules" v-model="user.password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
+                    <v-text-field dense outlined prepend-icon="mdi-account" label="Username" :rules="rules" v-model="user.username" @keyup.enter="login()"></v-text-field>
+                    <v-text-field dense outlined prepend-icon="mdi-lock" label="Password" :rules="rules" v-model="user.password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword" @keyup.enter="login()"></v-text-field>
                 </v-card-text>
                 <v-card-actions class="px-7 mt-n5 mb-2">
                     <v-spacer></v-spacer>

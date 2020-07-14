@@ -14,11 +14,11 @@
 .fade-enter-active,
 .fade-leave-active {
     transition-property: opacity;
-    transition-duration: .60s;
+    transition-duration: .50s;
 }
 
 .fade-enter-active {
-    transition-delay: .60s;
+    transition-delay: .50s;
 }
 
 .fade-enter,

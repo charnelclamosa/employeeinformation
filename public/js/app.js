@@ -2216,8 +2216,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2250,7 +2248,6 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       },
-      CardTitle: 'Basic CRUD',
       CreateDialog: false,
       EditDialog: false,
       datas: [],
@@ -2291,6 +2288,31 @@ __webpack_require__.r(__webpack_exports__);
           _this2.CreateDialog = false;
 
           _this2.fetchData();
+        });
+      }
+    },
+    passObject: function passObject(val) {
+      this.EditDialog = true;
+      this.edit = Object.assign({}, val);
+    },
+    updateAccount: function updateAccount() {
+      var _this3 = this;
+
+      var username = this.edit.username;
+      var password = this.edit.password;
+      var updated_by = this.$store.state.user.username;
+
+      if (password != '') {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/updateAccount', {
+          username: username,
+          password: password,
+          updated_by: updated_by
+        }).then(function (res) {
+          _this3.EditDialog = false;
+
+          _this3.$toast.success('Data has been updated!', 'Success', _this3.notificationSystem.options.success);
+
+          _this3.fetchData();
         });
       }
     }
@@ -2801,7 +2823,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition-property: opacity;\r\n    transition-duration: .60s;\n}\n.fade-enter-active {\r\n    transition-delay: .60s;\n}\n.fade-enter,\r\n.fade-leave-active {\r\n    opacity: 0\n}\n#background {\r\n    background-color: ghostwhite;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition-property: opacity;\r\n    transition-duration: .50s;\n}\n.fade-enter-active {\r\n    transition-delay: .50s;\n}\n.fade-enter,\r\n.fade-leave-active {\r\n    opacity: 0\n}\n#background {\r\n    background-color: ghostwhite;\n}\r\n", ""]);
 
 // exports
 
@@ -21467,8 +21489,6 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Username")]),
                                 _vm._v(" "),
-                                _c("th", [_vm._v("Password")]),
-                                _vm._v(" "),
                                 _c("th", [_vm._v("Last Updated Date")]),
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Updated by")]),
@@ -21484,8 +21504,6 @@ var render = function() {
                                   _c("td", [_vm._v(_vm._s(data.id))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(data.username))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(data.password))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(data.updated_at))]),
                                   _vm._v(" "),
@@ -21743,8 +21761,16 @@ var render = function() {
                             attrs: {
                               dense: "",
                               outlined: "",
+                              disabled: "",
                               label: "Username",
                               "prepend-icon": "mdi-account"
+                            },
+                            model: {
+                              value: _vm.edit.username,
+                              callback: function($$v) {
+                                _vm.$set(_vm.edit, "username", $$v)
+                              },
+                              expression: "edit.username"
                             }
                           }),
                           _vm._v(" "),
@@ -21763,6 +21789,13 @@ var render = function() {
                               "click:append": function($event) {
                                 _vm.showPassword = !_vm.showPassword
                               }
+                            },
+                            model: {
+                              value: _vm.edit.password,
+                              callback: function($$v) {
+                                _vm.$set(_vm.edit, "password", $$v)
+                              },
+                              expression: "edit.password"
                             }
                           })
                         ],
@@ -21802,7 +21835,7 @@ var render = function() {
                           attrs: { color: "primary" },
                           on: {
                             click: function($event) {
-                              _vm.EditDialog = false
+                              return _vm.updateAccount()
                             }
                           }
                         },
@@ -22070,6 +22103,23 @@ var render = function() {
                       label: "Username",
                       rules: _vm.rules
                     },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.login()
+                      }
+                    },
                     model: {
                       value: _vm.user.username,
                       callback: function($$v) {
@@ -22094,6 +22144,21 @@ var render = function() {
                     on: {
                       "click:append": function($event) {
                         _vm.showPassword = !_vm.showPassword
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.login()
                       }
                     },
                     model: {
@@ -84263,8 +84328,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Apache24\htdocs\employeeinformation\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Apache24\htdocs\employeeinformation\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\smd094\Documents\GitHub\employeeinformation\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\smd094\Documents\GitHub\employeeinformation\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

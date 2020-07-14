@@ -22,4 +22,13 @@ class AccountsController extends Controller
             'updated_by' => 'admin'
         ]);
     }
+
+    // Edit account
+    public function updateAccount(Request $req) {
+        DB::table('users')->where('username', $req['username'])->update([
+            'password' => $req['password'],
+            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_by' => $req['updated_by']
+        ]);
+    }
 }
