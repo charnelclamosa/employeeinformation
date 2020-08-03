@@ -130,6 +130,7 @@ export default {
             CreateDialog: false,
             EditDialog: false,
             datas: [],
+            hidePassword: '',
             create: {},
             passwordCheck: '',
             showPassword: false,
@@ -149,6 +150,7 @@ export default {
         fetchData() {
             axios.post('api/fetchAccount').then(res => {
                 this.datas = res.data
+                this.hidePassword = this.data.password
             })
         },
         createAccount() {

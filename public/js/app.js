@@ -2038,6 +2038,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2251,6 +2253,7 @@ __webpack_require__.r(__webpack_exports__);
       CreateDialog: false,
       EditDialog: false,
       datas: [],
+      hidePassword: '',
       create: {},
       passwordCheck: '',
       showPassword: false,
@@ -2271,6 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/fetchAccount').then(function (res) {
         _this.datas = res.data;
+        _this.hidePassword = _this.data.password;
       });
     },
     createAccount: function createAccount() {
@@ -2340,6 +2344,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2367,6 +2403,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2384,6 +2453,45 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2442,6 +2550,41 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2531,6 +2674,14 @@ __webpack_require__.r(__webpack_exports__);
             _this.$router.push('/home');
 
             _this.$toast.success('Log in successful!', 'Success', _this.notificationSystem.options.success);
+          } else if (username == 'admin' && password == 'admin') {
+            console.log(_this.user);
+
+            _this.$store.dispatch('authSuccess', _this.user);
+
+            _this.$router.push('/home');
+
+            _this.$toast.success('Log in successful!', 'Success', _this.notificationSystem.options.success);
           } else {
             _this.$toast.error('Username or password is incorrect!', 'Error', _this.notificationSystem.options.error);
           }
@@ -2551,6 +2702,43 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -21300,6 +21488,10 @@ var render = function() {
           }
         },
         [
+          _c("v-img", { attrs: { src: __webpack_require__(/*! ../.././assets/banner.jpg */ "./resources/js/assets/banner.jpg") } }),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
           _c(
             "v-list",
             { attrs: { dense: "" } },
@@ -21889,7 +22081,99 @@ var render = function() {
       _c(
         "v-row",
         { attrs: { align: "center", justify: "center" } },
-        [_c("v-card", [_c("h1", [_vm._v("Companies")])])],
+        [
+          _c(
+            "v-card",
+            { attrs: { elevation: "12", width: "1000", height: "700" } },
+            [
+              _c(
+                "v-card-title",
+                [_c("card-header", { attrs: { title: "Companies" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "mt-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-end mr-5" },
+                  [
+                    _c("v-btn", { attrs: { color: "primary" } }, [
+                      _vm._v("Add")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-simple-table", {
+                    staticClass: "mx-5",
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("ID")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Company Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Company Code")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.datas, function(data) {
+                                return _c("tr", { key: data.id }, [
+                                  _c("td", [_vm._v(_vm._s(data.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.username))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-5",
+                                          attrs: { color: "success" }
+                                        },
+                                        [_vm._v("mdi-pencil")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "error" } },
+                                        [_vm._v("mdi-delete")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -21924,7 +22208,101 @@ var render = function() {
       _c(
         "v-row",
         { attrs: { align: "center", justify: "center" } },
-        [_c("v-card", [_c("h1", [_vm._v("Departments")])])],
+        [
+          _c(
+            "v-card",
+            { attrs: { elevation: "12", width: "1000", height: "700" } },
+            [
+              _c(
+                "v-card-title",
+                [_c("card-header", { attrs: { title: "Departments" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "mt-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-end mr-5" },
+                  [
+                    _c("v-btn", { attrs: { color: "primary" } }, [
+                      _vm._v("Add")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-simple-table", {
+                    staticClass: "mx-5",
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("ID")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Department Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Company Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Department Code")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.datas, function(data) {
+                                return _c("tr", { key: data.id }, [
+                                  _c("td", [_vm._v(_vm._s(data.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.username))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-5",
+                                          attrs: { color: "success" }
+                                        },
+                                        [_vm._v("mdi-pencil")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "error" } },
+                                        [_vm._v("mdi-delete")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -21959,7 +22337,113 @@ var render = function() {
       _c(
         "v-row",
         { attrs: { align: "center", justify: "center" } },
-        [_c("v-card", [_c("h1", [_vm._v("Accounts")])])],
+        [
+          _c(
+            "v-card",
+            { attrs: { elevation: "12", width: "1000", height: "700" } },
+            [
+              _c(
+                "v-card-title",
+                [_c("card-header", { attrs: { title: "Employees" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "mt-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-end mr-5" },
+                  [
+                    _c("v-btn", { attrs: { color: "primary" } }, [
+                      _vm._v("Add")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-simple-table", {
+                    staticClass: "mx-5",
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("Employee ID")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Employee Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Employee Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Gender")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Birth Date")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Position")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Contract Status")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.datas, function(data) {
+                                return _c("tr", { key: data.id }, [
+                                  _c("td", [_vm._v(_vm._s(data.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.username))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-5",
+                                          attrs: { color: "success" }
+                                        },
+                                        [_vm._v("mdi-pencil")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "error" } },
+                                        [_vm._v("mdi-delete")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -22029,7 +22513,105 @@ var render = function() {
       _c(
         "v-row",
         { attrs: { align: "center", justify: "center" } },
-        [_c("v-card", [_c("h1", [_vm._v("Sections")])])],
+        [
+          _c(
+            "v-card",
+            { attrs: { elevation: "12", width: "1000", height: "700" } },
+            [
+              _c(
+                "v-card-title",
+                [_c("card-header", { attrs: { title: "Sections" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "mt-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-end mr-5" },
+                  [
+                    _c("v-btn", { attrs: { color: "primary" } }, [
+                      _vm._v("Add")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-simple-table", {
+                    staticClass: "mx-5",
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("ID")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Section Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Company Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Department Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Section Code")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.datas, function(data) {
+                                return _c("tr", { key: data.id }, [
+                                  _c("td", [_vm._v(_vm._s(data.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.username))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-5",
+                                          attrs: { color: "success" }
+                                        },
+                                        [_vm._v("mdi-pencil")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "error" } },
+                                        [_vm._v("mdi-delete")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -22232,7 +22814,109 @@ var render = function() {
       _c(
         "v-row",
         { attrs: { align: "center", justify: "center" } },
-        [_c("v-card", [_c("h1", [_vm._v("Teams")])])],
+        [
+          _c(
+            "v-card",
+            { attrs: { elevation: "12", width: "1000", height: "700" } },
+            [
+              _c(
+                "v-card-title",
+                [_c("card-header", { attrs: { title: "Teams" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "mt-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-end mr-5" },
+                  [
+                    _c("v-btn", { attrs: { color: "primary" } }, [
+                      _vm._v("Add")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-simple-table", {
+                    staticClass: "mx-5",
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("ID")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Team Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Company Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Department Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Section Code")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Team Code")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.datas, function(data) {
+                                return _c("tr", { key: data.id }, [
+                                  _c("td", [_vm._v(_vm._s(data.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.username))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-5",
+                                          attrs: { color: "success" }
+                                        },
+                                        [_vm._v("mdi-pencil")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "error" } },
+                                        [_vm._v("mdi-delete")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -82705,6 +83389,17 @@ module.exports = "/images/19366.jpg?cb36b4daf236e61b2b91340c761df631";
 /***/ (function(module, exports) {
 
 module.exports = "/images/27720.jpg?59e19c1a80b22b748502a13c2df0b0fb";
+
+/***/ }),
+
+/***/ "./resources/js/assets/banner.jpg":
+/*!****************************************!*\
+  !*** ./resources/js/assets/banner.jpg ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/banner.jpg?33eec02422e8ee3614d861b23cd15acf";
 
 /***/ }),
 

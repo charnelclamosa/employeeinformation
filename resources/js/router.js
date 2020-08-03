@@ -4,7 +4,6 @@ import store from './store.js'
 
 Vue.use(VueRouter)
 
-
 import Navigation from './components/Base/Navigation.vue'
 import Login from '../views/pages/Signin.vue'
 import Home from '../views/pages/Home.vue'

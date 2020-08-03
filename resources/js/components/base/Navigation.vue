@@ -1,6 +1,8 @@
 <template>
 <v-main>
     <v-navigation-drawer app v-model="drawer" :src="require('../.././assets/19366.jpg')">
+    <v-img :src="require('../.././assets/banner.jpg')"></v-img>
+    <v-divider></v-divider>
         <v-list dense>
             <v-list-item link v-for="route in routes" :key="route.name" :to="route.route">
                     <v-list-item-action>
