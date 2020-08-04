@@ -2218,9 +2218,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
+    var self = this;
     return {
       notificationSystem: {
         options: {
@@ -2241,7 +2245,7 @@ __webpack_require__.r(__webpack_exports__);
               instance.hide({
                 transitionOut: 'fadeOut'
               }, toast, 'button');
-              self.deleteData();
+              self.deleteAccount();
             }, true], ['<button>NO</button>', function (instance, toast) {
               instance.hide({
                 transitionOut: 'fadeOut'
@@ -2253,7 +2257,6 @@ __webpack_require__.r(__webpack_exports__);
       CreateDialog: false,
       EditDialog: false,
       datas: [],
-      hidePassword: '',
       create: {},
       passwordCheck: '',
       showPassword: false,
@@ -2274,7 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/fetchAccount').then(function (res) {
         _this.datas = res.data;
-        _this.hidePassword = _this.data.password;
       });
     },
     createAccount: function createAccount() {
@@ -2318,6 +2320,27 @@ __webpack_require__.r(__webpack_exports__);
 
           _this3.fetchData();
         });
+      }
+    },
+    confirmDelete: function confirmDelete(val) {
+      this["delete"] = Object.assign({}, val);
+      this.$toast.question('Are you sure you want to delete this account?', 'Confirmation', this.notificationSystem.options.question);
+    },
+    deleteAccount: function deleteAccount() {
+      var _this4 = this;
+
+      // console.log(this.delete)
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/deleteAccount', this["delete"]).then(function (res) {
+        _this4.$toast.success('Account has been deactivated!', 'Success', _this4.notificationSystem.options.success);
+
+        _this4.fetchData();
+      });
+    },
+    actionBtn: function actionBtn(val) {
+      if (val.status == 'Active') {
+        return 'mdi-delete';
+      } else {
+        return 'mdi-check-circle';
       }
     }
   }
@@ -2376,9 +2399,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      CreateDialog: false,
+      EditDialog: false,
+      rules: [function (v) {
+        return !!v || 'Required';
+      }]
+    };
   }
 });
 
@@ -21681,9 +21775,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Username")]),
                                 _vm._v(" "),
-                                _c("th", [_vm._v("Last Updated Date")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Updated by")]),
+                                _c("th", [_vm._v("Status")]),
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Actions")])
                               ])
@@ -21697,9 +21789,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(data.username))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(data.updated_at))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(data.updated_by))]),
+                                  _c("td", [_vm._v(_vm._s(data.status))]),
                                   _vm._v(" "),
                                   _c(
                                     "td",
@@ -21708,27 +21798,32 @@ var render = function() {
                                         "v-icon",
                                         {
                                           staticClass: "mr-5",
-                                          attrs: { color: "success" },
+                                          attrs: { color: "primary" },
                                           on: {
                                             click: function($event) {
                                               return _vm.passObject(data)
                                             }
                                           }
                                         },
-                                        [_vm._v("mdi-pencil")]
+                                        [_vm._v("mdi-dots-horizontal")]
                                       ),
                                       _vm._v(" "),
                                       _c(
                                         "v-icon",
                                         {
-                                          attrs: { color: "error" },
+                                          attrs: {
+                                            color:
+                                              data.status == "Active"
+                                                ? "error"
+                                                : "success"
+                                          },
                                           on: {
                                             click: function($event) {
-                                              return _vm.confirmation(data)
+                                              return _vm.confirmDelete(data)
                                             }
                                           }
                                         },
-                                        [_vm._v("mdi-delete")]
+                                        [_vm._v(_vm._s(_vm.actionBtn(data)))]
                                       )
                                     ],
                                     1
@@ -21936,7 +22031,7 @@ var render = function() {
                     },
                     [
                       _c("span", { staticClass: "font-weight-bold" }, [
-                        _vm._v("Edit")
+                        _vm._v("Details")
                       ])
                     ]
                   ),
@@ -21989,7 +22084,44 @@ var render = function() {
                               },
                               expression: "edit.password"
                             }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("strong", [_vm._v("Account status:")])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-radio-group",
+                            {
+                              staticClass: "mt-n1 mb-n5 ml-4",
+                              model: {
+                                value: _vm.edit.status,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.edit, "status", $$v)
+                                },
+                                expression: "edit.status"
+                              }
+                            },
+                            [
+                              _c("v-radio", {
+                                attrs: {
+                                  readonly: "",
+                                  label: "Active",
+                                  value: "Active"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-radio", {
+                                attrs: {
+                                  readonly: "",
+                                  label: "Deactivated",
+                                  value: "Deactivated",
+                                  color: "error"
+                                }
+                              })
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -22097,9 +22229,18 @@ var render = function() {
                   "div",
                   { staticClass: "text-end mr-5" },
                   [
-                    _c("v-btn", { attrs: { color: "primary" } }, [
-                      _vm._v("Add")
-                    ])
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "primary" },
+                        on: {
+                          click: function($event) {
+                            _vm.CreateDialog = true
+                          }
+                        }
+                      },
+                      [_vm._v("Add")]
+                    )
                   ],
                   1
                 )
@@ -22119,9 +22260,11 @@ var render = function() {
                               _c("tr", [
                                 _c("th", [_vm._v("ID")]),
                                 _vm._v(" "),
+                                _c("th", [_vm._v("Company Code")]),
+                                _vm._v(" "),
                                 _c("th", [_vm._v("Company Name")]),
                                 _vm._v(" "),
-                                _c("th", [_vm._v("Company Code")])
+                                _c("th", [_vm._v("Actions")])
                               ])
                             ]),
                             _vm._v(" "),
@@ -22146,7 +22289,7 @@ var render = function() {
                                           staticClass: "mr-5",
                                           attrs: { color: "success" }
                                         },
-                                        [_vm._v("mdi-pencil")]
+                                        [_vm._v("mdi-dots-horizontal")]
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -22167,6 +22310,312 @@ var render = function() {
                       }
                     ])
                   })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { width: "700", persistent: "" },
+              model: {
+                value: _vm.CreateDialog,
+                callback: function($$v) {
+                  _vm.CreateDialog = $$v
+                },
+                expression: "CreateDialog"
+              }
+            },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-card-title",
+                    {
+                      staticClass: "headline grey lighten-2",
+                      attrs: { "primary-title": "" }
+                    },
+                    [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v("Create")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "mt-5" },
+                    [
+                      _c(
+                        "v-form",
+                        { staticClass: "mx-5" },
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "3" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      dense: "",
+                                      outlined: "",
+                                      label: "Company Code",
+                                      rules: _vm.rules
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "9" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      dense: "",
+                                      outlined: "",
+                                      label: "Company Name",
+                                      rules: _vm.rules,
+                                      clearable: ""
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-textarea", {
+                            attrs: {
+                              dense: "",
+                              outlined: "",
+                              label: "Address",
+                              rules: _vm.rules,
+                              clearable: "",
+                              "no-resize": ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              dense: "",
+                              outlined: "",
+                              label: "Contact Number",
+                              rules: _vm.rules,
+                              clearable: ""
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "error", outlined: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.CreateDialog = false
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                        Cancel\r\n                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.createAccount()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                        Create\r\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { width: "700", persistent: "" },
+              model: {
+                value: _vm.EditDialog,
+                callback: function($$v) {
+                  _vm.EditDialog = $$v
+                },
+                expression: "EditDialog"
+              }
+            },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-card-title",
+                    {
+                      staticClass: "headline grey lighten-2",
+                      attrs: { "primary-title": "" }
+                    },
+                    [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v("Details")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "mt-5" },
+                    [
+                      _c(
+                        "v-form",
+                        { staticClass: "mx-5" },
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "3" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      dense: "",
+                                      outlined: "",
+                                      label: "Company Code",
+                                      rules: _vm.rules
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "9" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      dense: "",
+                                      outlined: "",
+                                      label: "Company Name",
+                                      rules: _vm.rules,
+                                      clearable: ""
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-textarea", {
+                            attrs: {
+                              dense: "",
+                              outlined: "",
+                              label: "Address",
+                              rules: _vm.rules,
+                              clearable: "",
+                              "no-resize": ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              dense: "",
+                              outlined: "",
+                              label: "Contact Number",
+                              rules: _vm.rules,
+                              clearable: ""
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "error", outlined: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.CreateDialog = false
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                        Cancel\r\n                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.createAccount()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                        Create\r\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )

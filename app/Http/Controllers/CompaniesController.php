@@ -4,40 +4,29 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 
-class AccountsController extends Controller
+class CompaniesController extends Controller
 {
     // Fetch data
     public function fetchAccount() {
-        $data = DB::table('users')->get();
+        $data = DB::table('companies')->get();
         return $data;
     }
 
-    // Add account
+    // Add company
     public function addAccount(Request $req) {
-        DB::table('users')->insert([
+        DB::table('companies')->insert([
             'username' => $req['username'],
             'password' => $req['password'],
-            'status' => 'Active',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'updated_by' => 'admin'
         ]);
     }
 
-    // Edit account
+    // Edit company
     public function updateAccount(Request $req) {
-        DB::table('users')->where('username', $req['username'])->update([
+        DB::table('companies')->where('username', $req['username'])->update([
             'password' => $req['password'],
-            'updated_at' => date('Y-m-d H:i:s'),
-            'updated_by' => $req['updated_by']
-        ]);
-    }
-
-    // Delete account
-    public function deleteAccount(Request $req) {
-        DB::table('users')->where('id', $req['id'])->update([
-            'status' => 'Deactivated',
-            'deleted_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'updated_by' => $req['updated_by']
         ]);

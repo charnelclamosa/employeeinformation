@@ -25,4 +25,5 @@ Route::post('/signin', 'AuthenticationController@loginAuth');
 Route::post('/fetchAccount', 'AccountsController@fetchAccount');
 Route::post('/addAccount', 'AccountsController@addAccount');
 Route::post('/updateAccount', 'AccountsController@updateAccount');
+Route::post('/deleteAccount', 'AccountsController@deleteAccount');
 
