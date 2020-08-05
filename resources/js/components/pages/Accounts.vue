@@ -7,7 +7,7 @@
             </v-card-title>
             <v-card-subtitle class="mt-12">
                 <div class="text-end mr-5">
-                    <v-btn color="primary" @click="CreateDialog = true">Add</v-btn>
+                    <v-btn fab color="primary" @click="CreateDialog = true"><v-icon>mdi-plus</v-icon></v-btn>
                 </div>
             </v-card-subtitle>
             <v-card-text>
@@ -25,7 +25,7 @@
                             <tr v-for="data in datas" :key="data.id">
                                 <td>{{data.id}}</td>
                                 <td>{{data.username}}</td>
-                                <td>{{data.status}}</td>
+                                <td><v-chip :color="data.status == 'Active' ? 'success' : 'error'">{{data.status}}</v-chip></td>
                                 <td>
                                     <v-icon color="primary" class="mr-5" @click="passObject(data)">mdi-dots-horizontal</v-icon>
                                     <v-icon :color="data.status == 'Active' ? 'error' : 'success'" @click="confirmDelete(data)">{{actionBtn(data)}}</v-icon>
@@ -73,7 +73,7 @@
                         <v-text-field dense outlined label="Password" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword" v-model="edit.password"></v-text-field>
                         <span><strong>Account status:</strong></span>
                         <v-radio-group v-model="edit.status" class="mt-n1 mb-n5 ml-4">
-                            <v-radio readonly label="Active" value="Active"></v-radio>
+                            <v-radio readonly label="Active" value="Active" color="success"></v-radio>
                             <v-radio readonly label="Deactivated" value="Deactivated" color="error"></v-radio>
                         </v-radio-group>
                     </v-form>
@@ -196,14 +196,21 @@ export default {
                 this.notificationSystem.options.question)
         },
         deleteAccount() {
-            // console.log(this.delete)
-            axios.post('api/deleteAccount', this.delete).then(res => {
-                this.$toast.success('Account has been deactivated!', 'Success', this.notificationSystem.options.success)
+            if (this.delete.status == 'Active') {
+                axios.post('api/deleteAccount', this.delete).then(res => {
+                    this.$toast.success('Account has been deactivated!', 'Success', this.notificationSystem.options.success)
                     this.fetchData()
-            })
+                })
+            } else {
+                axios.post('api/reactivateAccount', this.delete).then(res => {
+                    this.$toast.success('Account has been reactivated!', 'Success', this.notificationSystem.options.success)
+                    this.fetchData()
+                })
+            }
+
         },
         actionBtn(val) {
-            if(val.status == 'Active') {
+            if (val.status == 'Active') {
                 return 'mdi-delete'
             } else {
                 return 'mdi-check-circle'

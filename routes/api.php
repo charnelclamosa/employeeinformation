@@ -26,4 +26,5 @@ Route::post('/fetchAccount', 'AccountsController@fetchAccount');
 Route::post('/addAccount', 'AccountsController@addAccount');
 Route::post('/updateAccount', 'AccountsController@updateAccount');
 Route::post('/deleteAccount', 'AccountsController@deleteAccount');
+Route::post('/reactivateAccount', 'AccountsController@reactivateAccount');
 

@@ -2329,12 +2329,19 @@ __webpack_require__.r(__webpack_exports__);
     deleteAccount: function deleteAccount() {
       var _this4 = this;
 
-      // console.log(this.delete)
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/deleteAccount', this["delete"]).then(function (res) {
-        _this4.$toast.success('Account has been deactivated!', 'Success', _this4.notificationSystem.options.success);
+      if (this["delete"].status == 'Active') {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/deleteAccount', this["delete"]).then(function (res) {
+          _this4.$toast.success('Account has been deactivated!', 'Success', _this4.notificationSystem.options.success);
 
-        _this4.fetchData();
-      });
+          _this4.fetchData();
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/reactivateAccount', this["delete"]).then(function (res) {
+          _this4.$toast.success('Account has been reactivated!', 'Success', _this4.notificationSystem.options.success);
+
+          _this4.fetchData();
+        });
+      }
     },
     actionBtn: function actionBtn(val) {
       if (val.status == 'Active') {
@@ -21745,14 +21752,15 @@ var render = function() {
                     _c(
                       "v-btn",
                       {
-                        attrs: { color: "primary" },
+                        attrs: { fab: "", color: "primary" },
                         on: {
                           click: function($event) {
                             _vm.CreateDialog = true
                           }
                         }
                       },
-                      [_vm._v("Add")]
+                      [_c("v-icon", [_vm._v("mdi-plus")])],
+                      1
                     )
                   ],
                   1
@@ -21789,7 +21797,24 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(data.username))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(data.status))]),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-chip",
+                                        {
+                                          attrs: {
+                                            color:
+                                              data.status == "Active"
+                                                ? "success"
+                                                : "error"
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(data.status))]
+                                      )
+                                    ],
+                                    1
+                                  ),
                                   _vm._v(" "),
                                   _c(
                                     "td",
@@ -22107,7 +22132,8 @@ var render = function() {
                                 attrs: {
                                   readonly: "",
                                   label: "Active",
-                                  value: "Active"
+                                  value: "Active",
+                                  color: "success"
                                 }
                               }),
                               _vm._v(" "),

@@ -33,10 +33,20 @@ class AccountsController extends Controller
         ]);
     }
 
-    // Delete account
+    // Deactivate account
     public function deleteAccount(Request $req) {
         DB::table('users')->where('id', $req['id'])->update([
             'status' => 'Deactivated',
+            'deleted_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_by' => $req['updated_by']
+        ]);
+    }
+
+    //Reactivate account
+    public function reactivateAccount(Request $req) {
+        DB::table('users')->where('id', $req['id'])->update([
+            'status' => 'Active',
             'deleted_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'updated_by' => $req['updated_by']
